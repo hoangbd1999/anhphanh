@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="./app.js" defer></script>
+    <title>LoveU</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+        .musicButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            text-align: center;
+            line-height: 50px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="loading">
+        <div class="boxHeartImg">
+            <div class="heartItem item1">
+                <img src="./image/heart.png" alt="">
+            </div>
+            <div class="heartItem item2">
+                <img src="./image/heart.png" alt="">
+            </div>
+            <div class="heartItem item3">
+                <img src="./image/heart.png" alt="">
+            </div>
+        </div>
+        <div class="heartBox">
+            <div class="heart"></div>
+        </div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+            <div class="percent">100%</div>
+        </div>
+        <h2 class="textBox">
+            <span class="textLoad">loading love</span>
+            <span class="cricle1">.</span>
+            <span class="cricle2">.</span>
+            <span class="cricle3">.</span>
+        </h2>
+        <div class="buttonCLick">
+            <img src="./image/cursor.png" alt="">
+            <div class="button">
+                <p class="textBtn"></p>
+            </div>
+        </div>
+    </div>
+    <audio id="au" class="hidden" autoplay="autoplay" loop>
+        <source src="./music/Em-Là-Ai-Remix111.mp3" type="audio/mp3">
+    </audio>
+    <button class="musicButton" id="musicButton">♫</button>
+    <script>
+         function playAudio() {
+            var audio = document.getElementById('au');
+            var button = document.getElementById('musicButton');
+            if (audio.paused) {
+                audio.play();
+                button.innerText = '♫';
+                localStorage.setItem('audioPlayed', 'true');
+            } else {
+                audio.pause();
+                button.innerText = '♪';
+                localStorage.setItem('audioPlayed', 'false');
+            }
+        }
+
+        // Check if the audio was played before
+        window.onload = function() {
+            var audioPlayed = localStorage.getItem('audioPlayed');
+            var button = document.getElementById('musicButton');
+            var audio = document.getElementById('au');
+            if (audioPlayed === 'true') {
+                audio.play();
+                button.innerText = '♫';
+            } else {
+                button.innerText = '♪';
+            }
+        }
+
+        // Add event listener to music button
+        document.getElementById('musicButton').addEventListener('click', playAudio);
+    </script>
+</body>
+</html>
